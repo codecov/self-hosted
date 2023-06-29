@@ -1,0 +1,39 @@
+setup:
+  # Replace with the http location of your Codecov
+  # https://docs.codecov.io/docs/configuration#section-codecov-url
+  codecov_url: http://localhost:8080
+  #codecov_api_url: <codecov-url> # this defaults to <codecov-url> and is designed to work out of the box like this
+  #api_allowed_hosts: [] # this defaults to <codecov-url> and is designed to work out of the box like this
+  # Replace with your Codecov Enterprise License key. This is required for the containers to function.
+  # https://docs.codecov.io/docs/configuration#section-enterprise-license
+  enterprise_license: null
+  # https://docs.codecov.com/docs/configuration#instance-wide-admins
+  admins:
+    - service: github
+      username: "<your-user>"
+  # Replace with a random string
+  # https://docs.codecov.io/docs/configuration#section-cookie-secret
+  http:
+    cookie_secret: "<your-cookie-secret>"
+  timeseries:
+    enabled: true
+github:
+  client_id: "<client-id>"
+  client_secret: "<client-secret>"
+  global_upload_token: "<upload-token>"
+services:
+  redis_url: "redis://redis:6379"
+  database_url: "postgres://postgres:testpassword@postgres:5432/postgres"
+  timeseries_database_url: "postgres://postgres:testpassword@timescale:5432/postgres"
+  minio:
+    host: minio
+    port: 9000
+# If using external storage. Comment above and uncomment below
+#    host: s3.amazonaws.com or storage.googleapis.com if using GCS
+#    bucket: <bucket-name>
+#    region: <bucket-region>
+#    verify_ssl: true
+#    port: 443
+#    access_key_id: <aws-iam-access-key> # or <gcs-hmac-key> if using GCS
+#    secret_access_key: <aws-iam-secret> # or <gcs-hmac-secret> if using GCS
+#    iam_auth: <boolean, default false> # set to true in AWS to attempt to authenticate via Instance role

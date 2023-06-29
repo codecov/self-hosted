@@ -1,0 +1,118 @@
+version: "3"
+
+services:
+  gateway:
+    image: codecov/enterprise-gateway:latest-stable #note: this is for setup purposes only, be sure to pin to the latest release from our changelog: https://docs.codecov.io/changelog
+    volumes:
+      - ./config:/config
+      #- ${CODECOV_SSL_CERT-/cert/codecov.crt}:/etc/codecov/ssl/certs/cert.crt:ro # uncomment if using ssl
+    ports:
+      - "${CODECOV_PORT-8080}:8080"
+      #- "${CODECOV_SSL_PORT-8443}:8443" # uncomment if using ssl
+    environment:
+      - CODECOV_GATEWAY_MINIO_ENABLED=true
+      #- CODECOV_GATEWAY_SSL_ENABLED=true # uncomment if using ssl
+    networks:
+      - codecov
+    depends_on:
+      - api
+      - frontend
+
+  frontend:
+    image: codecov/enterprise-frontend:latest-stable #note: this is for setup purposes only, be sure to pin to the latest release from our changelog: https://docs.codecov.io/changelog
+    environment:
+      - CODECOV_BASE_HOST=localhost:8080
+      - CODECOV_API_HOST=localhost:8080
+      - CODECOV_IA_HOST=localhost:8080
+      - CODECOV_SCHEME=http
+    volumes:
+      - ./config:/config
+    ports:
+      - "8080"
+    networks:
+      - codecov
+
+  api:
+    image: codecov/enterprise-api:latest-stable #note: this is for setup purposes only, be sure to pin to the latest release from our changelog: https://docs.codecov.io/changelog
+#    build: # uncomment if on a mac
+#      dockerfile: ./m1-build-fix/Dockerfile
+#      context: .
+    volumes:
+      - ./config:/config
+    networks:
+      - codecov
+    depends_on:
+      - minio
+      - timescale
+      - postgres
+      - redis
+
+  worker:
+    image: codecov/enterprise-worker:latest-stable #note: this is for setup purposes only, be sure to pin to the latest release from our changelog: https://docs.codecov.io/changelog
+    command: worker
+    volumes:
+      - ./config:/config
+      - archive-volume:/archive
+    networks:
+      - codecov
+    depends_on:
+      - minio
+      - redis
+      - postgres
+      - timescale
+
+  redis:
+    image: redis:6-alpine
+    volumes:
+      - redis-volume:/data
+    networks:
+      - codecov
+
+  postgres:
+    image: postgres:14-alpine
+    environment:
+      - POSTGRES_PASSWORD=testpassword
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+    volumes:
+      - postgres-volume:/var/lib/postgresql/data
+    ports:
+      - "9432:5432"
+    networks:
+      - codecov
+
+  timescale:
+    image: timescale/timescaledb-ha:pg14-latest
+    environment:
+      - POSTGRES_PASSWORD=testpassword
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+    volumes:
+      - timescale-volume:/var/lib/postgresql/data
+    ports:
+      - "8432:5432"
+    networks:
+      - codecov
+
+  minio:
+    image: minio/minio:RELEASE.2020-04-15T00-39-01Z
+    command: server /export
+    ports:
+      - "${CODECOV_MINIO_PORT-9000}:9000"
+    environment:
+      - MINIO_ACCESS_KEY=codecov-default-key
+      - MINIO_SECRET_KEY=codecov-default-secret
+    volumes:
+      - archive-volume:/export
+    networks:
+      - codecov
+
+volumes:
+  postgres-volume:
+  timescale-volume:
+  redis-volume:
+  archive-volume:
+
+networks:
+  codecov:
+    driver: bridge
