@@ -13,18 +13,25 @@ Our unique Coverage Diff® will describe the commit in relation to its impact on
 
 This repo is meant for a quick POC that can be ran locally. It is recommended to use Helm or Terraform to deploy Codecov in production.
 
-Codecov currently requires your team to use one or more of the following: GitHub, GitHub Enterprise, GitLab, Gitlab CE, GitLab Enterprise, Bitbucket and Bitbucket Server (formerly Stash).
+Codecov currently requires your team to use one or more of the following: GitHub, GitHub Enterprise, GitLab, Gitlab CE, GitLab Enterprise, Bitbucket and Bitbucket Server. You will need to configure one (or more) of these providers for your self-hosted install of Codecov to function correctly. 
 
-- **Website** https://codecov.io
-- **Phone number** 1 (415) 854-9184
-- **Valid company email** [enterprise@codecov.io][email]
-- **Company icon/logo** https://github.com/codecov/media/tree/master/logos
-- **Product icon/logo** https://github.com/codecov/media/tree/master/logos
-- **Support link** https://codecov.io/support
-- **License link** https://about.codecov.io/eula
-- **Screenshots**
-- **Search tags** code coverage, static analysis, dev-ops, continuous integration, software development, developer tools
+We recommend using our [Self-Hosted Configuration Guide](https://docs.codecov.com/docs/configuration) to ensure that your self-hosted install is properly configured.
 
-[config]: http://docs.codecov.io/docs/configuration
-[email]: mailto:enterprise@codecov.io
-[eula]: https://about.codecov.io/eula
+### License Generation
+
+Codecov self-hosted is based on Codecov's Enterprise On-Premises offering which is now deprecated. As a result, this software requires a license to run properly. **This is purely a technical requirement of the software at this time** and you will never be asked to purchase a license from Codecov or any other entity in order to use Codecov self-hosted. 
+
+The installation comes with a general license with a 50 user seat limit. We chose 50 seats as we believe this is the maximum number of users a Docker Compose based PoC can reliably support out of the box, but your mileage may vary depending on how you plan to use Codecov. 
+
+If you require more seats, a `license.py` script has been added that you can use from the command line to generate a license. From the scripts directory, run the following command:
+
+```
+python3 license.py new --expires=2030-12-25 --company=company-name  --users=50
+```
+You can set `expires`, `company`, and `users` to whatever future date, name, and user count you wish respectively, but those arguments are required for the script to function properly. 
+
+Note that this script requires pycryptodome to be installed on your system. You can install it with:
+
+```
+pip install pycryptodome
+```

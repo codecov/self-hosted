@@ -6,7 +6,7 @@ setup:
   #api_allowed_hosts: [] # this defaults to <codecov-url> and is designed to work out of the box like this
   # Replace with your Codecov Enterprise License key. This is required for the containers to function.
   # https://docs.codecov.io/docs/configuration#section-enterprise-license
-  enterprise_license: null
+  enterprise_license: "F5O0Fu5ASFTPtWXM51BK8YQlq7IM2s+8TBGULrf9Um7wHjfPwI+Z3E4PfF/dPs6Uc5A+MLti+2etHq5dnFEfZgoiIVCLZ8x+0BVmUSWwPS42vJXnf1veY9Bglang4mDIhmfWfp5l6AT6cxmAVFpGrwobiK6OcN9pjWx4iWabazmsOiF9LM++v0WtuHNvhgzRcKmnJPgqahEB7qqF6KQ1hg=="
   # https://docs.codecov.com/docs/configuration#instance-wide-admins
   admins:
     - service: github
