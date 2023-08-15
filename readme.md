@@ -1,6 +1,10 @@
 # Self-Hosted Codecov
 > Code coverage done right.® Empower your developers with Codecov to improve code quality.
 
+> We believe that everyone should have access to quality software (like Sentry), that’s why we have always offered Codecov for free to open source maintainers.
+>
+> By open sourcing Codecov, we’re not only joining the community that’s supported us from the start — but also want to make sure that every developer can contribute to and build on the Codecov experience.
+
 Testing software is crucial for deploying healthy code. Codecov provides metrics and insight in the results of tests through code coverage reports. Coverage reports are used to determine what lines of code were tested and what lines were missed entirely. These reports are uploaded to Codecov to be analyzed and stored historically. This information helps your developers save time tracking down bugs and commit stronger code that is well tested, to increase code coverage to 100%.
 
 ### Features
