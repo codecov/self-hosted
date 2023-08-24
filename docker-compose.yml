@@ -50,6 +50,8 @@ services:
   worker:
     image: codecov/enterprise-worker:latest-stable #note: this is for setup purposes only, be sure to pin to the latest release from our changelog: https://docs.codecov.io/changelog
     command: worker
+    environment:
+      - RUN_ENV=ENTERPRISE
     volumes:
       - ./config:/config
       - archive-volume:/archive
