@@ -2,7 +2,7 @@ version: "3"
 
 services:
   gateway:
-    image: codecov/enterprise-gateway:latest-stable #note: this is for setup purposes only, be sure to pin to the latest release from our changelog: https://docs.codecov.io/changelog
+    image: codecov/self-hosted-gateway:latest-calver #note: this is for setup purposes only, be sure to pin to the latest release from our changelog: https://docs.codecov.io/changelog
     volumes:
       - ./config:/config
       #- ${CODECOV_SSL_CERT-/cert/codecov.crt}:/etc/codecov/ssl/certs/cert.crt:ro # uncomment if using ssl
@@ -19,7 +19,7 @@ services:
       - frontend
 
   frontend:
-    image: codecov/enterprise-frontend:latest-stable #note: this is for setup purposes only, be sure to pin to the latest release from our changelog: https://docs.codecov.io/changelog
+    image: codecov/self-hosted-frontend:latest-calver #note: this is for setup purposes only, be sure to pin to the latest release from our changelog: https://docs.codecov.io/changelog
     environment:
       - CODECOV_BASE_HOST=localhost:8080
       - CODECOV_API_HOST=localhost:8080
@@ -33,10 +33,7 @@ services:
       - codecov
 
   api:
-    image: codecov/enterprise-api:latest-stable #note: this is for setup purposes only, be sure to pin to the latest release from our changelog: https://docs.codecov.io/changelog
-#    build: # uncomment if on a mac
-#      dockerfile: ./m1-build-fix/Dockerfile
-#      context: .
+    image: codecov/self-hosted-api:latest-calver #note: this is for setup purposes only, be sure to pin to the latest release from our changelog: https://docs.codecov.io/changelog
     volumes:
       - ./config:/config
     networks:
@@ -48,8 +45,7 @@ services:
       - redis
 
   worker:
-    image: codecov/enterprise-worker:latest-stable #note: this is for setup purposes only, be sure to pin to the latest release from our changelog: https://docs.codecov.io/changelog
-    command: worker
+    image: codecov/self-hosted-worker:latest-calver #note: this is for setup purposes only, be sure to pin to the latest release from our changelog: https://docs.codecov.io/changelog
     environment:
       - RUN_ENV=ENTERPRISE
     volumes:
