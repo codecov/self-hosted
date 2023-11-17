@@ -39,10 +39,14 @@ services:
     networks:
       - codecov
     depends_on:
-      - minio
-      - timescale
-      - postgres
-      - redis
+      postgres:
+        condition: service_healthy
+      timescale:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
 
   worker:
     image: codecov/self-hosted-worker:latest-calver #note: this is for setup purposes only, be sure to pin to the latest release from our changelog: https://docs.codecov.io/changelog
@@ -54,10 +58,14 @@ services:
     networks:
       - codecov
     depends_on:
-      - minio
-      - redis
-      - postgres
-      - timescale
+      postgres:
+        condition: service_healthy
+      timescale:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
 
   redis:
     image: redis:6-alpine
@@ -65,6 +73,11 @@ services:
       - redis-volume:/data
     networks:
       - codecov
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 1s
+      timeout: 3s
+      retries: 30
 
   postgres:
     image: postgres:14-alpine
@@ -78,6 +91,8 @@ services:
       - "9432:5432"
     networks:
       - codecov
+    healthcheck:
+      test: "pg_isready -U postgres"
 
   timescale:
     image: timescale/timescaledb-ha:pg14-latest
@@ -91,6 +106,8 @@ services:
       - "8432:5432"
     networks:
       - codecov
+    healthcheck:
+      test: "pg_isready -U postgres"
 
   minio:
     image: minio/minio:RELEASE.2020-04-15T00-39-01Z
@@ -104,6 +121,11 @@ services:
       - archive-volume:/export
     networks:
       - codecov
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
 
 volumes:
   postgres-volume:
