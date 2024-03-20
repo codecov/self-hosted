@@ -21,6 +21,10 @@ Codecov currently requires your team to use one or more of the following: GitHub
 
 We recommend using our [Self-Hosted Configuration Guide](https://docs.codecov.com/docs/configuration) to ensure that your self-hosted install is properly configured.
 
+### Disclaimer
+
+As mentioned above, this is meant for a quick POC or example of how to run Codecov. This configuration is not hardened for security and any usage is at your own risk. Default database credentials are included in the docker compose config. At a minimum, this should be updated at a minimum before wider usage. The minio bucket is also exposed via the docker compose. This is needed for Codecov to function locally. While no secret data is stored in this bucket, it is still recommended to make this private and interface with storage via presigned urls. This necessitates using a [storage backend such as S3 or GCS](https://docs.codecov.com/v5.0/docs/archiving-reports#configuration-ii-minio-with-s3).
+
 ### License Generation
 
 Codecov self-hosted is based on Codecov's Enterprise On-Premises offering which is now deprecated. As a result, this software requires a license to run properly. **This is purely a technical requirement of the software at this time** and you will never be asked to purchase a license from Codecov or any other entity in order to use Codecov self-hosted. 
