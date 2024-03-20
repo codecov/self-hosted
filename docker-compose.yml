@@ -74,8 +74,6 @@ services:
       - POSTGRES_DB=postgres
     volumes:
       - postgres-volume:/var/lib/postgresql/data
-    ports:
-      - "9432:5432"
     networks:
       - codecov
 
@@ -87,8 +85,6 @@ services:
       - POSTGRES_DB=postgres
     volumes:
       - timescale-volume:/var/lib/postgresql/data
-    ports:
-      - "8432:5432"
     networks:
       - codecov
 
