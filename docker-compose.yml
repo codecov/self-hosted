@@ -78,7 +78,7 @@ services:
       - codecov
 
   timescale:
-    image: timescale/timescaledb-ha:pg14-latest
+    image: timescale/timescaledb:pg14-latest
     environment:
       - POSTGRES_PASSWORD=testpassword
       - POSTGRES_USER=postgres
