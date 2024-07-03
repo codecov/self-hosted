@@ -15,6 +15,7 @@ setup:
   # https://docs.codecov.io/docs/configuration#section-cookie-secret
   http:
     cookie_secret: "<your-cookie-secret>"
+    cookies_domain: localhost
   timeseries:
     enabled: true
 github:
