@@ -60,7 +60,7 @@ services:
       - timescale
 
   redis:
-    image: redis:6-alpine
+    image: redis:6.2-alpine
     volumes:
       - redis-volume:/data
     networks:
