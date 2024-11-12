@@ -58,17 +58,10 @@ def decode_license(license):
 
 
 def main(args=None):
-    expires = None
-    company = None
-    seats = None
-    repos = None
-    license = None
-    url = None
-    trial = True
 
     parser = argparse.ArgumentParser(prog='codecov key gen', add_help=True,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
-    subparsers = parser.add_subparsers(title='Commands')
+    subparsers = parser.add_subparsers(title='Commands', required=True)
 
     make = subparsers.add_parser('new')
     make.add_argument('--expires', action="store", required=True,
