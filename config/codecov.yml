@@ -29,6 +29,7 @@ services:
   minio:
     host: minio
     port: 9000
+    auto_create_bucket: true
 # If using external storage. Comment above and uncomment below
 #    host: s3.amazonaws.com or storage.googleapis.com if using GCS
 #    bucket: <bucket-name>
