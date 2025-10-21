@@ -74,7 +74,7 @@ services:
       - codecov
 
   postgres:
-    image: postgres:14-alpine
+    image: postgres:17-alpine
     environment:
       - POSTGRES_PASSWORD=testpassword
       - POSTGRES_USER=postgres
