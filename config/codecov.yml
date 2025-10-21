@@ -18,14 +18,42 @@ setup:
     cookies_domain: localhost
   timeseries:
     enabled: true
+  ta_timeseries:
+    enabled: true
 github:
   client_id: "<client-id>"
   client_secret: "<client-secret>"
   global_upload_token: "<upload-token>"
+  enabled: true
+  integration_id_enabled: true
+  webhook_secret_enabled: true
+  global_upload_token_enabled: true
+  webhook_secret: "<webhook-secret>"
+  integration:
+    id: "<integration-id>"
+    pem: /config/github.pem
+ 
+# Config for other git providers
+# github_enterprise:
+#   enabled: true
+#   integration_id_enabled: true
+#   webhook_secret_enabled: true
+#   global_upload_token_enabled: true
+#   client_id: "<client-id>"
+# gitlab_enterprise:
+#   client_id: "<client-id>"
+#   enabled: true
+#   global_upload_token_enabled: false
+# bitbucket_server:
+#   client_id: "<client-id>"
+#   enabled: true
+#   global_upload_token_enabled: false
+
 services:
   redis_url: "redis://redis:6379"
   database_url: "postgres://postgres:testpassword@postgres:5432/postgres"
   timeseries_database_url: "postgres://postgres:testpassword@timescale:5432/postgres"
+  ta_timeseries_database_url: "postgres://postgres:testpassword@timescale:5432/postgres"
   minio:
     host: minio
     port: 9000

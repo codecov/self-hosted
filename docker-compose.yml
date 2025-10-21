@@ -25,6 +25,13 @@ services:
       - CODECOV_API_HOST=localhost:8080
       - CODECOV_IA_HOST=localhost:8080
       - CODECOV_SCHEME=http
+      # Config for other git providers
+      # - CODECOV_GHE_HOST=ghe.yourdomain.com
+      # - GITHUB_ENTERPRISE_CLIENT_ID:<client-id>
+      # - CODECOV_GLE_HOST=ghe.yourdomain.com
+      # - GITLAB_ENTERPRISE_CLIENT_ID:<client-id>
+      # - CODECOV_BBS_HOST=ghe.yourdomain.com
+      # - BITBUCKET_SERVER_CLIENT_ID:<client-id>
     volumes:
       - ./config:/config
     ports:
@@ -78,7 +85,7 @@ services:
       - codecov
 
   timescale:
-    image: timescale/timescaledb:latest-pg14
+    image: timescale/timescaledb:latest-pg17
     environment:
       - POSTGRES_PASSWORD=testpassword
       - POSTGRES_USER=postgres
